@@ -8,7 +8,11 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./home-manager-config.nix 
     ];
+
+  # Experimental feature
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -89,9 +93,13 @@
     isNormalUser = true;
     description = "sylflo";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-    #  thunderbird
-    ];
+    #packages = with pkgs; [
+    ##  thunderbird
+    #];
+    #shell = pkgs.zsh;
+    #dotfiles = {
+    #  ".zshrc" = builtins.readFile ./zshrc; # Reference your zshrc template file
+    #};
   };
 
   # Fix problem with ruff installation
