@@ -139,10 +139,13 @@
     podman-compose
     pipx
     python310
+    nodejs
     ruff
+    tmux
     vscodium
     wget
     unzip
+    yarn
   ];
 
   # Install Steam
