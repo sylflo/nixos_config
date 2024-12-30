@@ -2,13 +2,13 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./home-manager-config.nix 
+      ./home-manager-config.nix
     ];
 
   # Experimental feature
@@ -16,14 +16,11 @@
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
+  #boot.loader.systemd-boot.loader.generations = 2;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -50,7 +47,6 @@
   hardware.graphics.enable = true;
   #hardware.video.hardenedIntel = false;  # Disable hardened Intel for better performance.
   #hardware.video.intel.vaapi.enable = true;  # For hardware-accelerated video decoding.
-  #hardware.video.intel.vulkan.enable = true;  # Enable Vulkan for Intel GPUs.
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -135,10 +131,12 @@
   environment.systemPackages = with pkgs; [
     htop
     git
+    libsecret
     pciutils
     podman-compose
     pipx
     python310
+    python312
     nodejs
     ruff
     tmux
@@ -146,6 +144,9 @@
     wget
     unzip
     yarn
+    # TODO put it in hardware.config
+    vulkan-loader
+    vulkan-tools
   ];
 
   # Install Steam
