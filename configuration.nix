@@ -48,19 +48,6 @@
   #hardware.video.hardenedIntel = false;  # Disable hardened Intel for better performance.
   #hardware.video.intel.vaapi.enable = true;  # For hardware-accelerated video decoding.
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us";
-    variant = "";
-  };
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -81,7 +68,6 @@
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
-  #services.xserver.libinput.enable = true;
   services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -89,18 +75,15 @@
     isNormalUser = true;
     description = "sylflo";
     extraGroups = [ "networkmanager" "wheel" ];
-    #packages = with pkgs; [
-    ##  thunderbird
-    #];
-    #shell = pkgs.zsh;
-    #dotfiles = {
-    #  ".zshrc" = builtins.readFile ./zshrc; # Reference your zshrc template file
-    #};
   };
 
-  # Fix problem with ruff installation
-  #programs.nix-ld.enable = true;
-  #programs.nix-ld.libraries = options.programs.nix-ld.libraries.default;
+  # Install Hyprland
+  programs.hyprland = {
+    # Install the packages from nixpkgs
+    enable = true;
+    # Whether to enable XWayland
+    xwayland.enable = true;
+  };
 
   # Install firefox.
   programs.firefox.enable = true;
@@ -131,6 +114,9 @@
   environment.systemPackages = with pkgs; [
     htop
     git
+    iproute2
+    jq
+    killall
     libsecret
     pciutils
     podman-compose
@@ -148,6 +134,7 @@
     vulkan-loader
     vulkan-tools
   ];
+
 
   # Install Steam
   programs.steam = {
