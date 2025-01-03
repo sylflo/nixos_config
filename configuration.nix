@@ -112,8 +112,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    htop
     git
+    htop
     iproute2
     jq
     killall
@@ -121,10 +121,10 @@
     pciutils
     podman-compose
     pipx
-    python310
     python312
     nodejs
     ruff
+    socat
     tmux
     vscodium
     wget

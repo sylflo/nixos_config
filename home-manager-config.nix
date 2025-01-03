@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 
 let
@@ -17,7 +17,12 @@ in {
 
   home.packages = with pkgs; [
     spotify
+    eog
+    eww
+    #eww-wayland
     ## Window manager
+    grim
+    slurp
     kitty
     playerctl
     swaynotificationcenter
