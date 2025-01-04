@@ -135,6 +135,13 @@
     vulkan-tools
   ];
 
+  fonts = {
+    enableDefaultFonts = true;  # Optional: Ensures basic system fonts are available
+    fonts = with pkgs; [
+      google-fonts
+      nerdfonts
+    ];
+  };
 
   # Install Steam
   programs.steam = {

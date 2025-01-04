@@ -29,8 +29,6 @@ in {
     pipewire
     wireplumber
     dolphin # TODO to change/customize
-    (pkgs.callPackage ./fonts/fleur_de_leah.nix {})
-    (pkgs.callPackage ./fonts/fira_sans.nix {})
   ];
 
   #home.file = {
