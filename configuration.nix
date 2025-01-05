@@ -112,7 +112,13 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    # BEGIN WM
+    rofi-wayland
+
     acpi
+    brightnessctl
+    pulseaudio
+    # END WM
     git
     htop
     iproute2
@@ -141,6 +147,7 @@
     fonts = with pkgs; [
       google-fonts
       nerdfonts
+      (pkgs.lib.makeFontPath "/etc/nixos/fonts")
     ];
   };
 
