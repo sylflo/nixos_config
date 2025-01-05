@@ -114,11 +114,13 @@
   environment.systemPackages = with pkgs; [
     # BEGIN WM
     rofi-wayland
-
-    acpi
-    brightnessctl
+    light
+    procps
+    inotify-tools
+    #acpi
+    #brightnessctl
     pulseaudio
-    # END WM
+
     git
     htop
     iproute2
@@ -147,7 +149,6 @@
     fonts = with pkgs; [
       google-fonts
       nerdfonts
-      (pkgs.lib.makeFontPath "/etc/nixos/fonts")
     ];
   };
 
@@ -183,9 +184,7 @@
   # };
 
   # List services that you want to enable:
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-  services.blueman.enable = true;
+
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
 
