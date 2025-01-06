@@ -28,6 +28,12 @@
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
+  services.udev.extraRules = ''
+    # Allow non-root users to access backlight control
+    KERNEL=="backlight", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/backlight/*/brightness"
+    KERNEL=="backlight", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/backlight/*/max_brightness"
+  '';
+
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -117,7 +123,8 @@
     light
     procps
     inotify-tools
-    #acpi
+    acpid
+    acpi
     #brightnessctl
     pulseaudio
 
@@ -184,6 +191,7 @@
   # };
 
   # List services that you want to enable:
+  services.acpid.enable = true;
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
