@@ -119,6 +119,8 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     # BEGIN WM
+    glib
+    mpv
     rofi-wayland
     light
     procps
