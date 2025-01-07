@@ -3,10 +3,12 @@
 
 let
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
-  dotfiles = builtins.fetchGit {
-    url = "https://github.com/sylflo/dotfiles.git";
-    ref = "main"; # Replace with the desired branch or tag
-  };
+  #dotfiles = builtins.fetchGit {
+  #  url = "https://github.com/sylflo/dotfiles.git";
+  #  ref = "main"; # Replace with the desired branch or tag
+  #};
+  dotfiles = "/home/sylflo/Projects/dotfiles";
+
 in {
   imports = [
     (import "${home-manager}/nixos")
@@ -19,6 +21,7 @@ in {
     spotify
     eog
     eww
+    hyprlock
     #eww-wayland
     ## Window manager
     grim
@@ -35,11 +38,18 @@ in {
   #  #".config/hypr/hyprland.conf".source = "${dotfiles}/hyprland.conf";
   #  ".config/hypr/hyprlock.conf".source = "${dotfiles}/hyprlock.conf";
   #};
-    #home.file.".config/hypr".source = "${dotfiles}";
-    #home.file.".config/hypr".recursive = true;
+    home.file.".config/kitty".source = "${dotfiles}/config/kitty";
+    home.file.".config/kitty".recursive = true;
 
-    home.file.".config/kitty".source = "${dotfiles}/config/kitty"
-    home.file.".config/kitty".recursive = true
+    home.file.".config/eww".source = "${dotfiles}/config/eww";
+    home.file.".config/eww".recursive = true;
+
+    home.file.".config/rofi".source = "${dotfiles}/config/rofi";
+    home.file.".config/rofi".recursive = true;
+
+    home.file.".config/hypr".source = "${dotfiles}/config/hypr";
+    home.file.".config/hypr".recursive = true;
+    home.file.".config/hypr".force = true;
 
     # Enable Zsh as the shell
     programs.zsh = { enable = true; oh-my-zsh = {
