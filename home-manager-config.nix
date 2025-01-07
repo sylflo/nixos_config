@@ -38,6 +38,9 @@ in {
     #home.file.".config/hypr".source = "${dotfiles}";
     #home.file.".config/hypr".recursive = true;
 
+    home.file.".config/kitty".source = "${dotfiles}/config/kitty"
+    home.file.".config/kitty".recursive = true
+
     # Enable Zsh as the shell
     programs.zsh = { enable = true; oh-my-zsh = {
         enable = true; # Install and manage Oh My Zsh

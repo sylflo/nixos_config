@@ -28,11 +28,11 @@
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
-  services.udev.extraRules = ''
-    # Allow non-root users to access backlight control
-    KERNEL=="backlight", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/backlight/*/brightness"
-    KERNEL=="backlight", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/backlight/*/max_brightness"
-  '';
+  #services.udev.extraRules = ''
+  #  # Allow non-root users to access backlight control
+  #  KERNEL=="backlight", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/backlight/*/brightness"
+  #  KERNEL=="backlight", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/backlight/*/max_brightness"
+  #'';
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
@@ -122,13 +122,14 @@
     glib
     mpv
     rofi-wayland
-    light
+    brightnessctl
+    #light
     procps
     inotify-tools
     acpid
     acpi
     #brightnessctl
-    pulseaudio
+    #pulseaudio
 
     git
     htop
