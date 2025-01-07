@@ -130,6 +130,13 @@
     acpi
     #brightnessctl
     #pulseaudio
+    swww
+    waypaper
+    #hyprexpo
+
+    cmake
+    meson
+    cpio
 
     git
     htop

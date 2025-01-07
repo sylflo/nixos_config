@@ -1,5 +1,4 @@
-{ config, pkgs, lib, ... }:
-
+{ config, pkgs, lib, inputs, ... }:
 
 let
   home-manager = builtins.fetchTarball "https://github.com/nix-community/home-manager/archive/release-24.11.tar.gz";
@@ -19,11 +18,9 @@ in {
 
   home.packages = with pkgs; [
     spotify
-    eog
+    ## Window manager
     eww
     hyprlock
-    #eww-wayland
-    ## Window manager
     grim
     slurp
     kitty
@@ -33,6 +30,15 @@ in {
     wireplumber
     dolphin # TODO to change/customize
   ];
+
+    # Adding Hyprland plugins
+    wayland.windowManager.hyprland = {
+      enable = true;
+      plugins = [
+        pkgs.hyprlandPlugins.hyprexpo
+      ];
+    };
+
 
   #home.file = {
   #  #".config/hypr/hyprland.conf".source = "${dotfiles}/hyprland.conf";
