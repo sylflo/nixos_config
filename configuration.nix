@@ -2,17 +2,21 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ inputs, config, pkgs, lib, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ./home-manager-config.nix
+      #./home-manager-config.nix
     ];
 
-  # Experimental feature
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    substituters = ["https://hyprland.cachix.org"];
+    trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
+    # Experimental feature
+    experimental-features = [ "nix-command" "flakes" ];
+  };
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -87,8 +91,11 @@
   programs.hyprland = {
     # Install the packages from nixpkgs
     enable = true;
-    # Whether to enable XWayland
+    # Whether to enable XWayland # TODO Why did I enable this ???
     xwayland.enable = true;
+    #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    # make sure to also set the portal package, so that they are in sync
+    #portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
 
   # Install firefox.
@@ -121,7 +128,6 @@
     # BEGIN WM
     glib
     mpv
-    rofi-wayland
     brightnessctl
     #light
     procps
@@ -130,15 +136,12 @@
     acpi
     #brightnessctl
     #pulseaudio
-    swww
-    waypaper
     #hyprexpo
 
     cmake
     meson
     cpio
 
-    git
     htop
     iproute2
     jq
@@ -161,13 +164,13 @@
     vulkan-tools
   ];
 
-  fonts = {
-    enableDefaultFonts = true;  # Optional: Ensures basic system fonts are available
-    fonts = with pkgs; [
-      google-fonts
-      nerdfonts
-    ];
-  };
+  #fonts = {
+  #  enableDefaultFonts = true;  # Optional: Ensures basic system fonts are available
+  #  fonts = with pkgs; [
+  #    google-fonts
+  #    nerdfonts
+  #  ];
+  #};
 
   # Install Steam
   programs.steam = {
