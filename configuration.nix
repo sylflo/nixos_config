@@ -32,12 +32,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Paris";
 
-  #services.udev.extraRules = ''
-  #  # Allow non-root users to access backlight control
-  #  KERNEL=="backlight", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/backlight/*/brightness"
-  #  KERNEL=="backlight", SUBSYSTEM=="backlight", RUN+="${pkgs.coreutils}/bin/chmod 0666 /sys/class/backlight/*/max_brightness"
-  #'';
-
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
@@ -93,9 +87,9 @@
     enable = true;
     # Whether to enable XWayland # TODO Why did I enable this ???
     xwayland.enable = true;
-    #package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
     # make sure to also set the portal package, so that they are in sync
-    #portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
+    portalPackage = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.xdg-desktop-portal-hyprland;
   };
 
   # Install firefox.

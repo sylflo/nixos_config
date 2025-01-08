@@ -5,9 +5,11 @@
   #  ref = "main"; # Replace with the desired branch or tag
   #};
 
+let 
+ dotfiles = "/home/sylflo/Projects/dotfiles";
+in
 {
 
-  #home-manager.backupFileExtension
   home.username = "sylflo";
   home.homeDirectory = "/home/sylflo";
 
@@ -22,7 +24,7 @@
     #hyprlock
     grim
     slurp
-    #kitty
+    kitty
     playerctl
     swaynotificationcenter
     pipewire
@@ -34,22 +36,18 @@
   ###################
   # Start Dotfiles  #
   ###################
-  #home.file.".config/hypr".source = "/home/sylflo/Projects/dotfiles/config/hypr";
-  #home.file.".config/hypr".recursive = true;
-  #home.file.".config/hypr".force = true;
+  home.file.".config/hypr".source = "${dotfiles}/config/hypr";
+  home.file.".config/hypr".recursive = true;
+  home.file.".config/hypr".force = true;
   
-  programs.kitty.enable = true;
+  home.file.".config/kitty".source = "${dotfiles}/config/kitty";
+  home.file.".config/kitty".recursive = true;
 
-  # Optional, hint Electron apps to use Wayland:
-  # home.sessionVariables.NIXOS_OZONE_WL = "1";
-  #home.file.".config/kitty".source = "${dotfiles}/config/kitty";
-  #home.file.".config/kitty".recursive = true;
+  home.file.".config/eww".source = "${dotfiles}/config/eww";
+  home.file.".config/eww".recursive = true;
 
-  #home.file.".config/eww".source = "${dotfiles}/config/eww";
-  #home.file.".config/eww".recursive = true;
-
-  #home.file.".config/rofi".source = "${dotfiles}/config/rofi";
-  #home.file.".config/rofi".recursive = true;
+  home.file.".config/rofi".source = "${dotfiles}/config/rofi";
+  home.file.".config/rofi".recursive = true;
 
   ################
   # End dotfiles #
