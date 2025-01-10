@@ -1,24 +1,28 @@
 { lib, inputs, config, pkgs, ... }:
 {
-  
+
   home.username = "sylflo";
   home.homeDirectory = "/home/sylflo";
 
   home.packages = with pkgs; [
-    firefox
+    # Music players
     spotify
-    rofi-wayland
+    playerctl
+    # Wallpaper
     swww
     waypaper
-    eww
+    # Launcher
+    rofi-wayland
+    #eww
     #hyprlock # TODO use flake cos of compatbility with hyprland
+    # Screenshot
     grim
     slurp
+    # Terminal
     kitty
-    playerctl
+    # low-level multimedia framework
     pipewire
     wireplumber
-    #dolphin # TODO to change/customize
   ];
 
   wayland.windowManager.hyprland = {
@@ -28,7 +32,7 @@
       inputs.hyprland-virtual-desktops.packages.${pkgs.system}.virtual-desktops
     ];
     extraConfig = ''
-      #source = ~/.config/hypr/hyprland-source.conf
+      source = ~/.config/hypr/hyprland-source.conf
       stickyrule = class:^(kittysticky)$,3
       stickyrule = title:thunderbird,mail
 
@@ -44,10 +48,69 @@
     '';
   };
 
+
+  programs.hyprlock = {
+    enable = true;
+    package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
+    extraConfig = ''
+      source = ~/.config/hypr/hyprlock-source.conf
+    '';
+  };
+
+  programs.firefox = {
+    enable = true;
+    policies = {
+      DisableTelemetry = true;
+      DisableFirefoxStudies = true;
+      EnableTrackingProtection = {
+        Value= true;
+        Locked = true;
+        Cryptomining = true;
+        Fingerprinting = true;
+      };
+      DisablePocket = true;
+      DisableFirefoxAccounts = true;
+      DisableAccounts = true;
+      DisableFirefoxScreenshots = true;
+      OverrideFirstRunPage = "";
+      OverridePostUpdatePage = "";
+      DontCheckDefaultBrowser = true;
+      DisplayBookmarksToolbar = "never"; # alternatives: "always" or "newtab"
+      DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
+      SearchBar = "unified"; # alternative: "separate"
+      ExtensionSettings = {
+        "*".installation_mode = "blocked";
+        # uBlock Origin:
+       "uBlock0@raymondhill.net" = {
+         install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+         installation_mode = "force_installed";
+       };
+       # Bitwarden
+       "{446900e4-71c2-419f-a6a7-df9c091e268b}" = {
+         install_url = "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+         installation_mode = "force_installed";
+         #default_area = "navbar";
+         default_area = "menupanel";
+       };
+      };
+    };
+  };
+
   programs.git = {
     enable = true;
-    userName = "sylflo";
+    userName = "sylflo";  
     userEmail = "git@sylvain-chateau.com";
+  };
+
+
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscodium;
+    extensions = with pkgs.vscode-extensions; [
+      dracula-theme.theme-dracula
+      #vscodevim.vim
+      #yzhang.markdown-all-in-one
+    ];
   };
 
 

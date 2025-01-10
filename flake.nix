@@ -13,10 +13,10 @@
     };
 
     hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&ref=refs/tags/v0.46.2";
-    #hyprland.url = "path:/home/sylflo/Build/Hyprland";
-    #hyprland-virtual-desktops.url = "github:levnikmyskin/hyprland-virtual-desktops";
-    #hyprland-virtual-desktops.url = "github:levnikmyskin/hyprland-virtual-desktops/main";
-    #hyprland-virtual-desktops.url = "git+https://github.com/levnikmyskin/hyprland-virtual-desktops?submodules=1&ref=main";
+    hyprlock = {
+      url = "github:hyprwm/hyprlock";
+      inputs.hyprland.follows = "hyprland";
+    };
     hyprland-virtual-desktops = {
       url = "github:levnikmyskin/hyprland-virtual-desktops";
       inputs.hyprland.follows = "hyprland";
@@ -34,7 +34,10 @@
        # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
        home-manager.nixosModules.home-manager
        {
-         home-manager.extraSpecialArgs = { inherit inputs; };
+         #home-manager.extraSpecialArgs = { inherit inputs;};
+         home-manager.extraSpecialArgs = {
+           inherit inputs;
+         };
          home-manager.useGlobalPkgs = true;
          home-manager.useUserPackages = true;
          home-manager.backupFileExtension = "backup";

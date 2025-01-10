@@ -10,6 +10,12 @@
       ./hardware-configuration.nix
     ];
 
+  nixpkgs.config.packageOverrides = pkgs: {
+    nur = import (builtins.fetchTarball "https://github.com/nix-community/NUR/archive/master.tar.gz") {
+      inherit pkgs;
+    };
+  };
+
   nix.settings= {
     experimental-features = [ "nix-command" "flakes" ];
     substituters = ["https://hyprland.cachix.org"];
@@ -59,7 +65,6 @@
     isNormalUser = true;
     description = "sylflo";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [];
   };
 
   # Allow unfree packages
@@ -71,12 +76,23 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
      git
+     tmux
+     python3
   ];
 
   programs.hyprland = {
     enable = true;
     package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
   };
+
+  # Instann zsh for root user
+  programs = {
+      zsh = {
+        enable = true;
+      };
+  };
+  users.defaultUserShell = pkgs.zsh;
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
