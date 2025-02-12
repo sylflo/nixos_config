@@ -16,6 +16,9 @@
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
 
+
+  virtualisation.docker.enable = true;
+
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -58,12 +61,20 @@
     variant = "";
   };
 
+
+  # Enable GDM (GNOME Display Manager) - supports Wayland and Xorg
+  services.xserver.displayManager.gdm.enable = true;
+
+  # Enable GNOME Desktop
+  services.xserver.desktopManager.gnome.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sylflo = {
     isNormalUser = true;
     description = "sylflo";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" ];
   };
+
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
@@ -74,10 +85,12 @@
   #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   #  wget
      git
-     htop
      tmux
      python3
      brightnessctl
+     unzip
+     podman
+     acpi
   ];
 
   programs.hyprland = {
@@ -111,6 +124,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

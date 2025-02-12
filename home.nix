@@ -23,6 +23,12 @@
     # low-level multimedia framework
     pipewire
     wireplumber
+    #
+    wireguard-tools
+    acpi
+    #
+    google-chrome
+    plex-media-player
   ];
 
   wayland.windowManager.hyprland = {
@@ -92,6 +98,18 @@
          #default_area = "navbar";
          default_area = "menupanel";
        };
+       # MAL-Sync
+       "{c84d89d9-a826-4015-957b-affebd9eb603}" = {
+         install_url = "https://addons.mozilla.org/fr/firefox/addon/mal-sync/";
+         installation_mode = "force_installed";
+         default_area = "menupanel";
+       };
+       "{e2e52b5d-337a-4693-abde-a096277d3710}" = {
+         install_url = "https://addons.mozilla.org/en-US/firefox/addon/leetcode-themes/latest.xpi";
+         installation_mode = "force_installed";
+         default_area = "menupanel";
+       };
+       
       };
     };
   };
