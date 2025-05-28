@@ -25,30 +25,75 @@
 
   outputs = { self, nixpkgs, home-manager, hyprland, ... }@inputs: {
 
-   nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
-     system = "x86_64-linux";
-     specialArgs = { inherit inputs; };
-     modules = [
-       ./configuration.nix
-       # make home-manager as a module of nixos
-       # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
-       home-manager.nixosModules.home-manager
-       {
-         #home-manager.extraSpecialArgs = { inherit inputs;};
-         home-manager.extraSpecialArgs = {
-           inherit inputs;
-         };
-         home-manager.useGlobalPkgs = true;
-         home-manager.useUserPackages = true;
-         home-manager.backupFileExtension = "backup";
-         home-manager.users.sylflo = import ./home.nix;
-         # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
-       }
-     ];
-   };
-   #packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+    nixosConfigurations = {
+      personal-laptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/personal-laptop/configuration.nix
+          # make home-manager as a module of nixos
+          # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+          home-manager.nixosModules.home-manager
+          {
+            #home-manager.extraSpecialArgs = { inherit inputs;};
+            home-manager.extraSpecialArgs = {
+              inherit inputs;
+            };
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "backup";
+            home-manager.users.sylflo = import ./home.nix;
+            # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+          }
+        ]; 
+      };
+      # work-laptop = nixpkgs.lib.nixosSystem {
+      #   system = "x86_64-linux";
+      #   specialArgs = { inherit inputs; };
+      #   modules = [
+      #     ./hosts/work-laptop/configuration.nix
+      #     # make home-manager as a module of nixos
+      #     # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+      #     home-manager.nixosModules.home-manager
+      #     {
+      #       #home-manager.extraSpecialArgs = { inherit inputs;};
+      #       home-manager.extraSpecialArgs = {
+      #         inherit inputs;
+      #       };
+      #       home-manager.useGlobalPkgs = true;
+      #       home-manager.useUserPackages = true;
+      #       home-manager.backupFileExtension = "backup";
+      #       home-manager.users.sylflo = import ./home.nix;
+      #       # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+      #     }
+      #   ]; 
+      # };
+    };
 
-   # packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
+  #  nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+  #    system = "x86_64-linux";
+  #    specialArgs = { inherit inputs; };
+  #    modules = [
+  #      ./configuration.nix
+  #      # make home-manager as a module of nixos
+  #      # so that home-manager configuration will be deployed automatically when executing `nixos-rebuild switch`
+  #      home-manager.nixosModules.home-manager
+  #      {
+  #        #home-manager.extraSpecialArgs = { inherit inputs;};
+  #        home-manager.extraSpecialArgs = {
+  #          inherit inputs;
+  #        };
+  #        home-manager.useGlobalPkgs = true;
+  #        home-manager.useUserPackages = true;
+  #        home-manager.backupFileExtension = "backup";
+  #        home-manager.users.sylflo = import ./home.nix;
+  #        # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
+  #      }
+  #    ];
+  #  };
+  #  #packages.x86_64-linux.hello = nixpkgs.legacyPackages.x86_64-linux.hello;
+
+  #  # packages.x86_64-linux.default = self.packages.x86_64-linux.hello;
 
   };
 }
