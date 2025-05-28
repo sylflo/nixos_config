@@ -43,7 +43,7 @@
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.backupFileExtension = "backup";
-            home-manager.users.sylflo = import ./home.nix;
+            home-manager.users.sylflo = import ./common/home.nix;
             # Optionally, use home-manager.extraSpecialArgs to pass arguments to home.nix
           }
         ]; 
