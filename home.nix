@@ -5,6 +5,8 @@
   home.homeDirectory = "/home/sylflo";
 
   home.packages = with pkgs; [
+    mpv
+    anki-bin
     # Music players
     spotify
     playerctl
@@ -29,6 +31,10 @@
     #
     google-chrome
     plex-media-player
+    #
+    poetry
+    #
+    wget
   ];
 
   wayland.windowManager.hyprland = {
@@ -63,8 +69,13 @@
     '';
   };
 
+  #programs.ladybird = {
+  #  enable = true;
+  #};
+
   programs.firefox = {
     enable = true;
+    package = pkgs.librewolf;
     policies = {
       DisableTelemetry = true;
       DisableFirefoxStudies = true;
@@ -75,8 +86,8 @@
         Fingerprinting = true;
       };
       DisablePocket = true;
-      DisableFirefoxAccounts = true;
-      DisableAccounts = true;
+      DisableFirefoxAccounts = false;
+      DisableAccounts = false;
       DisableFirefoxScreenshots = true;
       OverrideFirstRunPage = "";
       OverridePostUpdatePage = "";
@@ -84,6 +95,17 @@
       DisplayBookmarksToolbar = "never"; # alternatives: "always" or "newtab"
       DisplayMenuBar = "default-off"; # alternatives: "always", "never" or "default-on"
       SearchBar = "unified"; # alternative: "separate"
+      Preferences = {
+        "cookiebanners.service.mode.privateBrowsing" = 2; # Block cookie banners in private browsing
+        "cookiebanners.service.mode" = 2; # Block cookie banners
+        "privacy.donottrackheader.enabled" = true;
+        "privacy.fingerprintingProtection" = true;
+        "privacy.resistFingerprinting" = true;
+        "privacy.trackingprotection.emailtracking.enabled" = true;
+        "privacy.trackingprotection.enabled" = true;
+        "privacy.trackingprotection.fingerprinting.enabled" = true;
+        "privacy.trackingprotection.socialtracking.enabled" = true;
+      };
       ExtensionSettings = {
         "*".installation_mode = "blocked";
         # uBlock Origin:

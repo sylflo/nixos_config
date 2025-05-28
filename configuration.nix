@@ -16,12 +16,12 @@
     trusted-public-keys = ["hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="];
   };
 
-
   virtualisation.docker.enable = true;
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  #boot.supportedFilesystems = [ "zfs" ];
 
   networking.hostName = "nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -42,6 +42,9 @@
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+  i18n.extraLocaleSettings = {
+    LC_CTYPE = "ja_JP.UTF-8";
+  };
 
   i18n.extraLocaleSettings = {
     LC_ADDRESS = "fr_FR.UTF-8";
@@ -91,7 +94,16 @@
      unzip
      podman
      acpi
+     zfs
+     htop
   ];
+
+
+
+  i18n.inputMethod = {
+    enabled = "ibus";
+    ibus.engines = with pkgs.ibus-engines; [ mozc ];
+  };
 
   programs.hyprland = {
     enable = true;
@@ -105,6 +117,13 @@
       };
   };
   users.defaultUserShell = pkgs.zsh;
+
+  programs.ladybird = {
+    enable = true;
+  };
+
+
+  #security.pki.certificateFiles = [ "./root.crt" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
