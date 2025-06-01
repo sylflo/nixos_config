@@ -35,6 +35,7 @@
     poetry
     #
     wget
+    eog
   ];
 
   wayland.windowManager.hyprland = {
