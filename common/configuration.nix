@@ -90,6 +90,7 @@
      acpi
      zfs
      htop
+     ldns
   ];
 
 
