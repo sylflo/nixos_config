@@ -58,7 +58,6 @@
     variant = "";
   };
 
-
   # Enable GDM (GNOME Display Manager) - supports Wayland and Xorg
   services.xserver.displayManager.gdm.enable = true;
 
@@ -99,6 +98,8 @@
     enabled = "ibus";
     ibus.engines = with pkgs.ibus-engines; [ mozc ];
   };
+
+  programs.gnupg.agent.enable = true;
 
   programs.hyprland = {
     enable = true;
