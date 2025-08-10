@@ -24,7 +24,7 @@
   '';
 
   services.avahi.enable = true;
-  services.avahi.nssmdns = true;
+  services.avahi.nssmdns4 = true;
 
   virtualisation.libvirtd.enable = true;
 
