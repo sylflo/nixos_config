@@ -11,12 +11,4 @@
     ];
 
   networking.hostName = "work-laptop"; # Define your hostname.
-  networking.extraHosts = ''
-    127.0.0.1 cinemaster.docker
-  '';
-
-  services.avahi.enable = true;
-  services.avahi.nssmdns = true; 
-
-
 }

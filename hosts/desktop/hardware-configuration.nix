@@ -9,9 +9,6 @@
     ];
 
   boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
-  boot.initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
-  #boot.initrd.kernelModules = [ ];
-  boot.kernelModules = [ "kvm-amd" ];
   boot.extraModulePackages = [ ];
 
   # Bluetooth
@@ -36,13 +33,6 @@
   # still possible to use this option, but it's recommended to use it in conjunction
   # with explicit per-interface declarations with `networking.interfaces.<interface>.useDHCP`.
   networking.useDHCP = lib.mkDefault true;
-  #networking.useDHCP = lib.mkDefault false;
-  #networking.interfaces.eno1.useDHCP = lib.mkDefault true;
-  # networking.interfaces.wlp5s0.useDHCP = lib.mkDefault true;
-  #networking.interfaces.eno1.ipv4.addresses = [ {
-  #  address = "10.2.10.42";
-  #  prefixLength = 24;
-  #} ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
@@ -50,8 +40,8 @@
   #############
   ## Nvidia ##
   ###########
-  # boot.initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
-  #boot.initrd.kernelModules = [ "nvidia_modeset"]; #"i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+
+  boot.initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
 
   services.xserver = {
     enable = true;

@@ -5,49 +5,37 @@
   home.homeDirectory = "/home/sylflo";
 
   home.packages = with pkgs; [
+    # Development tools
+    python3
+    poetry
+    rustup
+    # Personal applications
     mpv
     anki-bin
-    # Music players
     spotify
-    playerctl
-    # Wallpaper
-    swww
-    waypaper
-    # Launcher
-    rofi-wayland
-    #eww
-    #hyprlock # TODO use flake cos of compatbility with hyprland
-    # Screenshot
-    grim
-    slurp
-    # Terminal
-    kitty
-    # low-level multimedia framework
-    pipewire
-    wireplumber
-    #
-    wireguard-tools
-    acpi
-    #
     google-chrome
     plex-media-player
-    #
-    poetry
-    #
-    wget
     eog
+    # Wayland desktop tools
+    rofi-wayland
+    swww
+    waypaper
+    grim
+    slurp
+    alacritty
+    # User utilities
+    playerctl
+    wireguard-tools
   ];
 
   wayland.windowManager.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.system}.hyprland;
+    package = pkgs.hyprland;
     plugins = [
       inputs.hyprland-virtual-desktops.packages.${pkgs.system}.virtual-desktops
     ];
     extraConfig = ''
       source = ~/.config/hypr/hyprland-source.conf
-      stickyrule = class:^(kittysticky)$,3
-      stickyrule = title:thunderbird,mail
 
       plugin {
         virtual-desktops {
@@ -61,18 +49,39 @@
     '';
   };
 
-
   programs.hyprlock = {
     enable = true;
-    package = inputs.hyprlock.packages.${pkgs.system}.hyprlock;
     extraConfig = ''
       source = ~/.config/hypr/hyprlock-source.conf
     '';
-  };
+  };	
 
-  #programs.ladybird = {
-  #  enable = true;
-  #};
+  services.hypridle = {
+    enable = false;
+    settings = {
+      general = {
+        lock_cmd = "hyprlock";
+        before_sleep_cmd = "hyprlock";
+        #after_sleep_cmd = "hyprctl dispatch dpms on";
+        ignore_dbus_inhibit = true;
+      };
+      listener = [
+        {
+          timeout = 3600;
+          on-timeout = "hyprlock";
+        }
+        {
+          timeout = 3610;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+        #{
+        #  timeout = 20;
+        #  on-timeout = "systemctl suspend";
+        #}
+      ];
+    };
+  };
 
   programs.firefox = {
     enable = true;
@@ -147,10 +156,8 @@
   programs.vscode = {
     enable = true;
     package = pkgs.vscodium;
-    extensions = with pkgs.vscode-extensions; [
+    profiles.default.extensions = with pkgs.vscode-extensions; [
       dracula-theme.theme-dracula
-      #vscodevim.vim
-      #yzhang.markdown-all-in-one
     ];
   };
 

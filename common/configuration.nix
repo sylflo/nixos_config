@@ -16,17 +16,10 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  #boot.supportedFilesystems = [ "zfs" ];
-
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
   # Enable bluetooth
   hardware.bluetooth.enable = true; # enables support for Bluetooth
   hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
@@ -58,11 +51,6 @@
     variant = "";
   };
 
-  # Enable GDM (GNOME Display Manager) - supports Wayland and Xorg
-  services.xserver.displayManager.gdm.enable = true;
-
-  # Enable GNOME Desktop
-  services.xserver.desktopManager.gnome.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sylflo = {
@@ -78,35 +66,38 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  #  vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  #  wget
-     git
-     tmux
-     python3
-     brightnessctl
-     unzip
-     podman
-     acpi
-     zfs
-     htop
-     ldns
+    # Core system tools
+    git
+    tmux
+    unzip
+    wget
+    htop
+    acpi
+    # Hardware/system specific
+    brightnessctl
+    zfs
+    wmctrl
+    # System services
+    pipewire
+    wireplumber
+    # Containers (system-level)
+    podman
   ];
 
 
 
   i18n.inputMethod = {
-    enabled = "ibus";
+    enable = true;
+    type = "ibus";
     ibus.engines = with pkgs.ibus-engines; [ mozc ];
   };
 
-  programs.gnupg.agent.enable = true;
-
   programs.hyprland = {
     enable = true;
-    package = inputs.hyprland.packages.${pkgs.stdenv.hostPlatform.system}.hyprland;
+    package = pkgs.hyprland;
   };
 
-  # Instann zsh for root user
+  # Install zsh for root user
   programs = {
       zsh = {
         enable = true;
@@ -118,8 +109,6 @@
     enable = true;
   };
 
-
-  #security.pki.certificateFiles = [ "./root.crt" ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -139,7 +128,7 @@
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
-  networking.firewall.enable = false;
+  networking.firewall.enable = true;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
