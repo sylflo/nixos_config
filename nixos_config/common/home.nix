@@ -54,7 +54,13 @@
     extraConfig = ''
       source = ~/.config/hypr/hyprlock-source.conf
     '';
-  };	
+  };
+
+  # Hyprland dotfiles management
+  home.file = {
+    ".config/hypr/hyprland-source.conf".source = ../../dotfiles/hypr/hyprland-source.conf;
+    ".config/hypr/hyprlock-source.conf".source = ../../dotfiles/hypr/hyprlock-source.conf;
+  };
 
   services.hypridle = {
     enable = false;
