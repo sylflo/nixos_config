@@ -6,6 +6,7 @@
 
   home.packages = with pkgs; [
     # Development tools
+    ansible
     python3
     poetry
     rustup
