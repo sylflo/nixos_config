@@ -183,6 +183,9 @@
     # Custom .zshrc configuration
     export PATH=$HOME/.local/bin:$HOME/.config/elenapan/bin:$PATH
 
+    # Use a widely supported terminal type to avoid "Error opening terminal: alacritty" on SSH
+    export TERM=xterm-256color
+
     # Enable aliases
     alias ll='ls -la'
     alias gs='git status'
