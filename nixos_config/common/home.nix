@@ -24,6 +24,7 @@
     grim
     slurp
     alacritty
+    wl-clipboard
     # User utilities
     playerctl
     wireguard-tools
