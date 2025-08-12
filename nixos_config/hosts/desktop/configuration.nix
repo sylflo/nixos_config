@@ -11,6 +11,7 @@
     ];
 
   networking.hostName = "desktop"; # Define your hostname.
+  networking.interfaces.eno1.wakeOnLan.enable = true;
 
   programs.steam = {
     enable = true;
