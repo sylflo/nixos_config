@@ -8,6 +8,7 @@
     # Development tools
     ansible
     python3
+    parallel
     poetry
     rustup
     # Personal applications
