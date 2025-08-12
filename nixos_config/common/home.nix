@@ -191,6 +191,11 @@
     alias ll='ls -la'
     alias gs='git status'
 
+    # Auto-start Hyprland on TTY1
+    if [ -z "$WAYLAND_DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
+      exec Hyprland
+    fi
+
     # Source oh-my-zsh
     if [ -f $HOME/.oh-my-zsh/oh-my-zsh.sh ]; then
       source $HOME/.oh-my-zsh/oh-my-zsh.sh
