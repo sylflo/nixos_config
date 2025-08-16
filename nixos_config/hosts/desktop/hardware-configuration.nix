@@ -41,7 +41,7 @@
   ## Nvidia ##
   ###########
 
-  boot.initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" ];
+  boot.initrd.kernelModules = [ "nvidia" "i915" "nvidia_modeset" "nvidia_uvm" "nvidia_drm" "i2c-dev" ];
 
   services.xserver = {
     enable = true;

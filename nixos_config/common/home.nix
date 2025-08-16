@@ -26,6 +26,8 @@
     slurp
     alacritty
     wl-clipboard
+    # Other desktop tools
+    ddcutil
     # User utilities
     playerctl
     wireguard-tools

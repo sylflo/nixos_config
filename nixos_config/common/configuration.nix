@@ -49,11 +49,12 @@
   };
 
 
+  users.groups.i2c = {};
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sylflo = {
     isNormalUser = true;
     description = "sylflo";
-    extraGroups = [ "networkmanager" "wheel" "docker" ];
+    extraGroups = [ "networkmanager" "wheel" "docker" "i2c" ];
   };
 
 
