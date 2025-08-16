@@ -61,8 +61,8 @@
     '';
   };
 
-  # Hyprland dotfiles management
   home.file = {
+    # Hyprland dotfiles management
     ".config/hypr/hyprland-source.conf".source = ../../dotfiles/hypr/hyprland-source.conf;
     ".config/hypr/hyprlock-source.conf".source = ../../dotfiles/hypr/hyprlock-source.conf;
   };
