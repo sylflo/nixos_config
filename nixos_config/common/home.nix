@@ -65,6 +65,9 @@
     # Hyprland dotfiles management
     ".config/hypr/hyprland-source.conf".source = ../../dotfiles/hypr/hyprland-source.conf;
     ".config/hypr/hyprlock-source.conf".source = ../../dotfiles/hypr/hyprlock-source.conf;
+    
+    ".local/bin/start_steam_sunshine.sh".source = ../../dotfiles/scripts/start_steam_sunshine.sh;
+    ".local/bin/shutdown_steam_sunshine.sh".source = ../../dotfiles/scripts/shutdown_steam_sunshine.sh;
   };
 
   services.hypridle = {
